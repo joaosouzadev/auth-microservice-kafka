@@ -15,6 +15,10 @@ class ResetPasswordController extends Controller {
     }
 
     public function sendResetLinkEmail(Request $request): JsonResponse {
-        return $this->authService->sendResetLinkEmail($request->all());
+        return $this->authService->sendResetLinkEmail($request);
+    }
+
+    public function resetPassword(Request $request): JsonResponse {
+        return $this->authService->resetPassword($request);
     }
 }

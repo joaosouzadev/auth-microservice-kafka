@@ -12,5 +12,6 @@ php artisan migrate
 php artisan key:generate
 php artisan optimize:clear
 
+php artisan kafka:consume &
 php artisan queue:work
 exec docker-php-entrypoint "$@"
