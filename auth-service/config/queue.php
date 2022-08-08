@@ -71,17 +71,6 @@ return [
             'after_commit' => false,
         ],
 
-        'kafka' => [
-            'driver' => 'kafka',
-            'queue' => env('KAFKA_QUEUE', 'default'),
-            'boostrap_servers' => env('KAFKA_BOOTSTRAP_SERVERS'),
-            'security_protocol' => env('KAFKA_SECURITY_PROTOCOL'),
-            'sasl_mechanisms' => env('KAFKA_SASL_MECHANISMS'),
-            'sasl_username' => env('KAFKA_SASL_USERNAME'),
-            'sasl_password' => env('KAFKA_SASL_PASSWORD'),
-            'group_id' => env('KAFKA_GROUP_ID'),
-            'auto_offset_reset' => env('KAFKA_AUTO_OFFSET_RESET'),
-        ],
     ],
 
     /*

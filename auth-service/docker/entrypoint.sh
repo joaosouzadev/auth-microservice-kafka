@@ -12,6 +12,7 @@ php artisan migrate
 php artisan key:generate
 php artisan optimize:clear
 
-php-fpm
+php-fpm &
+php artisan queue:work
 
-exec "$@"
+exec docker-php-entrypoint "$@"

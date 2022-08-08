@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Traits\ConsumeExternalService;
+use Illuminate\Http\Request;
 
 class AuthService {
     use ConsumeExternalService;
@@ -13,15 +14,23 @@ class AuthService {
         $this->baseUri = config('services.microservices.auth.base_uri');
     }
 
-    public function register($data) {
-        return $this->externalRequest('POST', 'register', $data);
+    public function register(Request $request) {
+        return $this->externalRequest('POST', 'register', $request);
     }
 
-    public function login($data) {
-        return $this->externalRequest('POST', 'login', $data);
+    public function login(Request $request) {
+        return $this->externalRequest('POST', 'login', $request);
     }
 
-    public function sendResetLinkEmail($data) {
-        return $this->externalRequest('POST', 'recover-password', $data);
+    public function sendResetLinkEmail(Request $request) {
+        return $this->externalRequest('POST', 'recover-password', $request);
+    }
+
+    public function resetPassword(Request $request) {
+        return $this->externalRequest('POST', 'reset-password', $request);
+    }
+
+    public function getUser(Request $request) {
+        return $this->externalRequest('GET', 'user', $request);
     }
 }

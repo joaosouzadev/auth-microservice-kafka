@@ -15,14 +15,10 @@ class AuthController extends Controller {
     }
 
     public function register(Request $request): JsonResponse {
-        return $this->authService->register($request->all());
+        return $this->authService->register($request);
     }
 
     public function login(Request $request): JsonResponse {
-        return $this->authService->login($request->all());
-    }
-
-    public function sendResetLinkEmail(Request $request): JsonResponse {
-        return $this->authService->login($request->all());
+        return $this->authService->login($request);
     }
 }

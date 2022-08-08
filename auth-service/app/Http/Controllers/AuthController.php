@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\ResetPasswordEmail;
-use App\Jobs\ResetPasswordEmailConfirmation;
-use App\Jobs\WelcomeEmail;
+use App\Jobs\KafkaEmailJob;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +30,8 @@ class AuthController extends Controller {
             'confirmation_token' => Str::uuid()
         ]);
 
-        WelcomeEmail::dispatch($user->toArray());
+        KafkaEmailJob::dispatch($user->toArray(), 'WelcomeEmail');
+
         return response()->json($user, Response::HTTP_CREATED);
     }
 
@@ -68,7 +67,7 @@ class AuthController extends Controller {
         if ($user) {
             $user->reset_password_token = Str::uuid();
             $user->save();
-            ResetPasswordEmail::dispatch($request->email, $user->reset_password_token);
+            KafkaEmailJob::dispatch(['email' => $request->email, 'token' => $user->reset_password_token], 'ResetPasswordEmail');
         }
 
         return response()->json('Follow the instructions sent to your e-mail');
@@ -93,7 +92,8 @@ class AuthController extends Controller {
         $user->password = Hash::make($request->new_password);
         $user->reset_password_token = null;
         $user->save();
-        ResetPasswordEmailConfirmation::dispatch($request->email, $user->reset_password_token);
+
+        KafkaEmailJob::dispatch(['email' => $request->email], 'ResetPasswordEmailConfirmation');
 
         return response()->json('Password changed!');
     }

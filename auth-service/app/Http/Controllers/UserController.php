@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class UserController extends Controller {
     public function getUser(Request $request) {
@@ -15,6 +14,6 @@ class UserController extends Controller {
         $user->name = $request->name;
         $user->save();
 
-        return response()->json($user, 200);
+        return response()->json($user);
     }
 }

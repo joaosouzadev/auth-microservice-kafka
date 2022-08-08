@@ -26,12 +26,9 @@ class WelcomeEmail implements ShouldQueue
      * @return void
      */
     public function handle() {
-        var_dump('sending email');
         \Mail::send('welcome', ['user' => $this->data], function (Message $message) {
             $message->subject('Welcome');
             $message->to($this->data['email']);
         });
-
-        var_dump('Email sent');
     }
 }
